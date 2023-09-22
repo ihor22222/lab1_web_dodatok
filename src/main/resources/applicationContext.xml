@@ -1,0 +1,29 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- application.properties для збереження значень -->
+    <context:property-placeholder location="classpath:application.properties" />
+
+    <!-- Бін для новин -->
+<bean id="news" class="com.project.demoproject.News">
+
+    <constructor-arg name="headline" value="${news.headline}" />
+    <constructor-arg name="content" value="${news.content}" />
+
+</bean>
+
+        <!-- Бін для сторінки -->
+<bean id="newsPage" class="com.project.demoproject.NewsPage">
+<property name="news" ref="news" />
+<property name="pageUrl" value="${news.pageUrl}" />
+</bean>
+
+        <!-- Бін для проекту -->
+<bean id="project" class="com.project.demoproject.Project">
+<property name="newsPage" ref="newsPage" />
+<property name="projectName" value="${project.projectName}" />
+</bean>
+</beans>
